@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MiniTable</title>
+</head>
+<body>
+<form method="post" th:action="@{/query}">
+    <table class="table">
+        <thead>
+        <tr>
+            <th></th>
+            <th>A</th>
+            <th>B</th>
+            <th>C</th>
+            <th>D</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td><input type="text" th:text="*{stringList.get(0)}" th:value="*{stringList.get(0)}"></td>
+            <td><input type="text" th:text="*{stringList.get(1)}" th:value="*{stringList.get(1)}"></td>
+            <td><input type="text" th:text="*{stringList.get(2)}" th:value="*{stringList.get(2)}"></td>
+            <td><input type="text" th:text="*{stringList.get(3)}" th:value="*{stringList.get(3)}"></td>
+        </tr>
+<!--        <tr>-->
+<!--            <td>2</td>-->
+<!--            <td><input type="text"></td>-->
+<!--            <td><input type="text"></td>-->
+<!--            <td><input type="text"></td>-->
+<!--            <td><input type="text"></td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td>3</td>-->
+<!--            <td><input type="text"></td>-->
+<!--            <td><input type="text"></td>-->
+<!--            <td><input type="text"></td>-->
+<!--            <td><input type="text"></td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td>4</td>-->
+<!--            <td><input type="text"></td>-->
+<!--            <td><input type="text"></td>-->
+<!--            <td><input type="text"></td>-->
+<!--            <td><input type="text"></td>-->
+<!--        </tr>-->
+        </tbody>
+    </table>
+    <input type="submit" hidden>
+</form>
+
+</body>
+</html>
