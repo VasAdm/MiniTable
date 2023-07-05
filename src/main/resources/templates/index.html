@@ -15,18 +15,22 @@
         <th>D</th>
     </tr>
     </thead>
+    <tbody>
     <form method="post" th:action="@{/}" th:object="${wrapper}">
-        <tbody>
         <tr th:each="line, stat : ${wrapper.lineList}">
-            <td th:text="${line.id}"></td>
-            <td th:each="str : ${line.cellsValues}">
+            <td th:text="*{lineList[__${stat.index}__].id}"></td>
+            <td>
                 <input type="hidden" th:field="*{lineList[__${stat.index}__].id}">
-                <input type="text" th:field="${line.cellsValues[__${stat.index}__]}">
+                <input type="text" th:field="*{lineList[__${stat.index}__].values[0]}">
             </td>
+            <td><input type="text" th:field="*{lineList[__${stat.index}__].values[1]}"></td>
+            <td><input type="text" th:field="*{lineList[__${stat.index}__].values[2]}"></td>
+            <td><input type="text" th:field="*{lineList[__${stat.index}__].values[3]}"></td>
         </tr>
-        </tbody>
         <input type="submit" hidden>
     </form>
+    </tbody>
+
 </table>
 
 </body>

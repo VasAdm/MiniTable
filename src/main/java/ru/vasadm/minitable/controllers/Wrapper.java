@@ -9,12 +9,5 @@ import java.util.List;
 @Getter
 @Setter
 public class Wrapper {
-    List<Line> lineList;
-
-    @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        lineList.forEach(builder::append);
-        return builder.toString();
-    }
+    private List<Line> lineList;
 }
