@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.vasadm.minitable.Line;
+import ru.vasadm.minitable.services.Calculator;
+import ru.vasadm.minitable.services.NamesToValuesConverter;
+import ru.vasadm.minitable.services.Wrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +28,6 @@ public class MainPageController {
             list.add("");
             list.add("");
             line.setValues(list);
-//            line.setA("");
-//            line.setB("");
-//            line.setC("");
-//            line.setD("");
             lineList.add(line);
         }
         wrapper.setLineList(lineList);
@@ -43,33 +42,20 @@ public class MainPageController {
     @PostMapping(value = "/")
     public String responsePage(@ModelAttribute Wrapper wrapper) {
         System.out.println(wrapper);
+        operations(wrapper);
         MainPageController.wrapper = wrapper;
         return "index";
     }
 
-    private Wrapper operations(Wrapper wrapper) {
-        List<Line> tmpList = wrapper.getLineList();
-        String regex = "=[a-d][1-4][+\\-*/][a-d][1-4]";
-        for (Line line : tmpList) {
-            for (String cell : line.getValues()) {
-                if (!isNumeric(cell)) {
-
+    private void operations(Wrapper wrapper) {
+        wrapper.getLineList().forEach(line -> {
+            for (int i = 0; i < line.getValues().size(); i++) {
+                String tmp = line.getValues().get(i);
+                if (tmp.startsWith("=")) {
+                    tmp = NamesToValuesConverter.getValues(wrapper, tmp);
+                    line.getValues().set(i, String.valueOf(Calculator.evaluate(tmp)));
                 }
             }
-        }
-        return null;
+        });
     }
-
-    private static boolean isNumeric(String strNum) {
-        if (strNum == null) {
-            return true;
-        }
-        try {
-            double d = Double.parseDouble(strNum);
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
-        return true;
-    }
-
 }
